@@ -6360,12 +6360,52 @@ Blockly.Python['math_max'] = function(block) {
   return [code, Blockly.Python.ORDER_FUNCTION_CALL];
 };
   
-  
-  
+Blockly.Python['shct3_init'] = function(block, generator) {
+
+	Blockly.Python.definitions_['import_pin'] = 'from machine import Pin';
+	Blockly.Python.definitions_['import_I2C'] = 'from machine import I2C';
+	Blockly.Python.definitions_['import_SoftI2C'] = 'from machine import SoftI2C';
+
+	var value_i2c_number = Blockly.Python.valueToCode(block, 'i2c_number', Blockly.Python.ORDER_ATOMIC);
+
+	var code = `
+
+#Initialize SHCT3 Sensor
+SHCT3 = I2C(` + value_i2c_number + `)
+SHCT3_COMNMAND = bytearray([0x7C,0xA2])
+
+def shct3_get_values():
+    SHCT3.writeto(0x70,SHCT3_COMNMAND)
+    buf2 = bytearray([0x00,0x00,0x00,0x00,0x00,0x00])
+    SHCT3.readfrom_into(0x70,buf2)
+    tempC=(buf2[1]|(buf2[0]<<8))*175/65536-45
+    tempF=(tempC*1.8)+32
+    humid=(buf2[4]|(buf2[3]<<8))*100/65536
+    return (tempC, tempF, humid)
 
 
+`;	
+
+	return code;
+};
 
 
+Blockly.Python['shct3_read_tempc'] = function(block, generator) {
+	var code = `shct3_get_values()[0]`;
+	return [code, Blockly.Python.ORDER_FUNCTION_CALL];
+};
 
+Blockly.Python['shct3_read_tempf'] = function(block, generator) {
+	var code = `shct3_get_values()[1]`;
+	return [code, Blockly.Python.ORDER_FUNCTION_CALL];
+};
 
-  
+Blockly.Python['shct3_read_humid'] = function(block, generator) {
+	var code = `shct3_get_values()[2]`;
+	return [code, Blockly.Python.ORDER_FUNCTION_CALL];
+};
+
+Blockly.Python['shct3_read_all'] = function(block, generator) {
+	var code = `shct3_get_values()`;
+	return [code, Blockly.Python.ORDER_FUNCTION_CALL];
+  };

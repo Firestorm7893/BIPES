@@ -11835,3 +11835,61 @@ Blockly.Blocks['math_max'] = {
   }
 };
 
+Blockly.Blocks['shct3_init'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Start SHCT3 Sensor");
+    this.appendValueInput("i2c_number")
+        .setCheck("Number")
+        .appendField("I2C");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(230);
+ this.setTooltip("Start SHCT3 sensor");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['shct3_read_tempc'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Get SHCT3 temperature in Celsius");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+ this.setTooltip("Reads the temperature from the SHCT3 sensor in celsius");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['shct3_read_tempf'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Get SHCT3 temperature in Fahrenheit");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+ this.setTooltip("Reads the temperature from the SHCT3 sensor in Fahrenheit");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['shct3_read_humid'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Get SHCT3 air humidity");
+    this.setOutput(true, "Number");
+    this.setColour(230);
+ this.setTooltip("Reads the humidity from the SHCT3 sensor");
+ this.setHelpUrl("");
+  }
+};
+
+Blockly.Blocks['shct3_read_all'] = {
+  init: function() {
+    this.appendDummyInput()
+        .appendField("Get all readings from SHCT3");
+    this.setOutput(true, "Array");
+    this.setColour(230);
+ this.setTooltip("Gets all the values from the SHCT3 sensor [0] Celsius [1] Fehrenheit [2] Humidity");
+ this.setHelpUrl("");
+  }
+};
