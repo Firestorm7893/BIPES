@@ -554,7 +554,9 @@ Code.init = function() {
        oneBasedIndex: false,
        zoom:
            {controls: true,
-            wheel: true}
+            wheel: true},
+        renderer: 'thrasos'
+
       });
 
   Code.loadBlocks('');
